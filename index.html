@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bel Cerdas Cermat - Suara Hewan</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 { color: #2c3e50; font-size: 36px; margin-bottom: 5px; }
+        p.subtitle { color: #7f8c8d; font-size: 18px; margin-top: 0; }
+        
+        #winner-banner {
+            display: none;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            max-width: 800px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .buzzer-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 160px;
+            border-top: 8px solid #ccc;
+            transition: all 0.2s;
+        }
+
+        .klaster-name { font-size: 24px; font-weight: bold; color: #333; margin-bottom: 5px; }
+        .animal-name { font-size: 16px; color: #666; margin-bottom: 20px; }
+        .key-hint { 
+            display: inline-block;
+            background: #eee;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-buzz {
+            padding: 15px 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.1s;
+        }
+        
+        .btn-buzz:active { transform: scale(0.95); }
+        .btn-buzz:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .btn-reset {
+            margin-top: 50px;
+            padding: 15px 50px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .btn-reset:hover { background-color: #c0392b; }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Warna khusus tiap tim */
+        #card-1 { border-color: #ff9f43; } #btn-1 { background-color: #ff9f43; }
+        #card-2 { border-color: #0abde3; } #btn-2 { background-color: #0abde3; }
+        #card-3 { border-color: #10ac84; } #btn-3 { background-color: #10ac84; }
+        #card-4 { border-color: #5f27cd; } #btn-4 { background-color: #5f27cd; }
+        #card-5 { border-color: #ee5253; } #btn-5 { background-color: #ee5253; }
+    </style>
+</head>
+<body>
+
+    <h1>Bel Cerdas Cermat</h1>
+    <p class="subtitle">Sistem Terpusat & Anti-Bentrok</p>
+
+    <div id="winner-banner"></div>
+
+    <div class="container">
+        <!-- Klaster 1 -->
+        <div class="buzzer-card" id="card-1">
+            <div class="klaster-name">Klaster 1</div>
+            <div class="animal-name">Kucing</div>
+            <div class="key-hint">Tombol 1</div>
+            <button class="btn-buzz" id="btn-1" onclick="triggerBuzz(1)">TOMBOL</button>
+            <audio id="audio-1" src="suara-kucing.mp3"></audio>
+        </div>
+
+        <!-- Klaster 2 -->
+        <div class="buzzer-card" id="card-2">
+            <div class="klaster-name">Klaster 2</div>
+            <div class="animal-name">Anjing</div>
+            <div class="key-hint">Tombol 2</div>
+            <button class="btn-buzz" id="btn-2" onclick="triggerBuzz(2)">TOMBOL</button>
+            <audio id="audio-2" src="suara-anjing.mp3"></audio>
+        </div>
+
+        <!-- Klaster 3 -->
+        <div class="buzzer-card" id="card-3">
+            <div class="klaster-name">Klaster 3</div>
+            <div class="animal-name">Sapi</div>
+            <div class="key-hint">Tombol 3</div>
+            <button class="btn-buzz" id="btn-3" onclick="triggerBuzz(3)">TOMBOL</button>
+            <audio id="audio-3" src="suara-sapi.mp3"></audio>
+        </div>
+
+        <!-- Klaster 4 -->
+        <div class="buzzer-card" id="card-4">
+            <div class="klaster-name">Klaster 4</div>
+            <div class="animal-name">Kuda</div>
+            <div class="key-hint">Tombol 4</div>
+            <button class="btn-buzz" id="btn-4" onclick="triggerBuzz(4)">TOMBOL</button>
+            <audio id="audio-4" src="suara-kuda.mp3"></audio>
+        </div>
+
+        <!-- Klaster 5 -->
+        <div class="buzzer-card" id="card-5">
+            <div class="klaster-name">Klaster 5</div>
+            <div class="animal-name">Ayam</div>
+            <div class="key-hint">Tombol 5</div>
+            <button class="btn-buzz" id="btn-5" onclick="triggerBuzz(5)">TOMBOL</button>
+            <audio id="audio-5" src="suara-ayam.mp3"></audio>
+        </div>
+    </div>
+
+    <button class="btn-reset" onclick="resetBuzzer()">🔄 RESET (Spasi)</button>
+
+    <script>
+        // State untuk mengunci bel jika sudah ada yang menekan
+        let isLocked = false;
+
+        // Data konfigurasi klaster
+        const klasters = {
+            1: { name: "Klaster 1", animal: "Kucing", color: "#ff9f43", key: "1" },
+            2: { name: "Klaster 2", animal: "Anjing", color: "#0abde3", key: "2" },
+            3: { name: "Klaster 3", animal: "Sapi", color: "#10ac84", key: "3" },
+            4: { name: "Klaster 4", animal: "Kuda", color: "#5f27cd", key: "4" },
+            5: { name: "Klaster 5", animal: "Ayam", color: "#ee5253", key: "5" }
+        };
+
+        // Fungsi utama saat bel ditekan
+        function triggerBuzz(id) {
+            if (isLocked) return; // Jika sudah ada yang menekan, abaikan yang lain
+            isLocked = true;
+
+            const team = klasters[id];
+
+            // 1. Matikan semua tombol
+            document.querySelectorAll('.btn-buzz').forEach(btn => btn.disabled = true);
+
+            // 2. Tampilkan banner pemenang
+            const banner = document.getElementById('winner-banner');
+            banner.innerHTML = `🎉 ${team.name} (${team.animal}) Menjawab!`;
+            banner.style.backgroundColor = team.color;
+            banner.style.display = 'block';
+
+            // 3. Mainkan audio
+            const audio = document.getElementById(`audio-${id}`);
+            if (audio) {
+                audio.currentTime = 0; // Reset ke awal jika audio masih berjalan
+                audio.play().catch(e => console.log("Audio file belum ditambahkan atau diblokir browser."));
+            }
+        }
+
+        // Fungsi untuk mengembalikan bel ke kondisi awal
+        function resetBuzzer() {
+            isLocked = false;
+            
+            // Sembunyikan banner
+            document.getElementById('winner-banner').style.display = 'none';
+            
+            // Aktifkan kembali semua tombol
+            document.querySelectorAll('.btn-buzz').forEach(btn => btn.disabled = false);
+            
+            // Hentikan semua suara yang sedang berjalan
+            for (let i = 1; i <= 5; i++) {
+                const audio = document.getElementById(`audio-${i}`);
+                if (audio) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+            }
+        }
+
+        // Event Listener untuk mendeteksi input keyboard
+        document.addEventListener('keydown', (event) => {
+            // Jika tombol Spasi atau Enter ditekan, reset sistem
+            if (event.key === ' ' || event.key === 'Enter') {
+                event.preventDefault(); // Mencegah scrolling spasi
+                resetBuzzer();
+                return;
+            }
+
+            // Cek apakah tombol yang ditekan sesuai dengan konfigurasi klaster (1, 2, 3, 4, 5)
+            for (let id in klasters) {
+                if (event.key === klasters[id].key) {
+                    triggerBuzz(id);
+                    break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
